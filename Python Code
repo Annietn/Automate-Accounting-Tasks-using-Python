@@ -1,0 +1,15 @@
+# Count how many working-from-days for the purpose of tax returns
+import pandas as pd
+import numpy as np
+import holidays
+
+start = pd.to_datetime('01/01/2020', format='%d/%m/%Y').date()
+end = pd.to_datetime('01/01/2021', format='%d/%m/%Y').date()
+
+us_holidays = holidays.UnitedStates(years=2020, prov='US')
+
+print(*us_holidays.items(), sep='\n')
+
+wfh_day_count = np.busday_count(start, end, holidays=[*us_holidays.keys()])
+
+print(f'Total WFH Days {wfh_day_count}') 
